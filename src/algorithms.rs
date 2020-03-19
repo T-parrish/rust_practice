@@ -6,8 +6,6 @@ pub mod algo_funcs {
         let mut sum = 0;
         let target_count = targets.len();
         let middle = target_count / 2;
-
-        println!("middle: {}", middle);
         let mut number_counter = HashMap::new();
 
         for t in &targets {
@@ -51,5 +49,28 @@ pub mod algo_funcs {
         }
 
         x
+    }
+
+    pub fn pig_latin(text: &str) -> String {
+        let mut out_string = String::from("");
+        let vowels: String = String::from("aeiouAEIOU");
+
+        for word in text.split_whitespace() {
+            let start = &word[..1];
+            // if word starts with a vowel, maintain order and add 'ay'
+            let pigged = match vowels.contains(start) {
+                true => {
+                    format!("{}ay ", &word[..])
+                },
+                // Otherwise, move first letter to end and add 'ay'
+                false => {
+                    format!("{}{}{}", &word[1..], &word[0..1], "ay ")
+                },
+            };
+
+            out_string.push_str(&pigged[..]);
+        }
+
+        String::from(out_string.trim())
     }
 }
